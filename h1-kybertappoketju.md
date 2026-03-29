@@ -77,6 +77,9 @@ Kolmantena tuli katsoa viisi videota, jotka kattavat [Santos et al: The Art of H
 - Skannaukset voidaan kohdistaa yksittäisiin koneisiin tai koko verkkoon.
 
 ### x-4) KKO 2003:36
+
+Viimeisenä tuli Suomen korkeimman oikeuden [tapausta](https://www.finlex.fi/fi/oikeuskaytanto/korkein-oikeus/ennakkopaatokset/2003/36) reilun parin vuosikymmenen takaa.
+
 - A teki porttiskannauksen pankkikonsernin verkkoon tarkoituksenaan löytää tietoturva-aukkoja.
 - Käräjäoikeus: syyte tietomurron yrityksestä hylättiin näytön epävarmuuden vuoksi.
 - Hovioikeus: katsoi A:n syyllistyneen tietomurron yritykseen → sakot ja vahingonkorvaukset.
@@ -170,10 +173,62 @@ Aiemmasta testistä poiketen, tällä kertaa tuloksista paljastuu myös seuraava
 - ``Running: Linux...``
   - Käyttöjärjestelmänä on Linux
 
+## e) HackTheBox
+
+Koska itselläni ensimmäinen oppitunti meni lähinnä Kalin asentamiseen kahteen kertaan, en tunnilla päässyt naukumista pidemmälle. Jatkoin siis harjoituksia vaatimattomasti Bambin parissa.
+
+![kuva6](images/h1-bambi.png)
+
+Bambin viides kysymys ei enää lähtenyt lonkalta. Yhdistin Kalin oikeasta yläkulmasta VPN yhteyden HackTheBoxista saamaan ovpn-tiedostoon. Tarkistin vielä pingaamalla googlen 8.8.8.8 osoitetta, että varmasti olin ulkona julkisesta verkosta. Tämän jälkeen ajoin aikaisemmissa harjoituksissa käytetyn komennon ``$ nmap -T4 -A 10.129.49.144``, joka kartoitti HTB-harjoituskoneen. Vastaukseksi sain kuvan mukaisesti seuraavaa:
+
+![kuva6](images/h1-ans1.png)
+
+Yllä olevan kuvan avulla sain vastaukset seuraaviin kysymyksiin HTB:ssä
+- Q5: From your scans, what version is FTP running on the target?
+  - A: vsftpd 3.0.3
+- Q6: From your scans, what OS type is running on the target?
+  - A: Unix
+- Q8: What is username that is used over FTP when you want to log in without having an account?
+  - A: anonymous
+
+ Seuraavia kysymyksiä varten tuli kirjautua FTP-palvelimelle. Tämä onnistui kirjoittamalla ``ftp anonymous@10.129.49.144`` ja arvaamalla salasana [oikein](https://www.ibm.com/docs/en/i/7.5.0?topic=i-configuring-anonymous-ftp) (tldr no password required).
+ 
+ ![kuva7](images/h1-ans2.png)
+
+ Tämän jälkeen pystyi taas vastaamaan yhteen uuteen kysymykseen.
+ - Q9: What is the response code we get for the FTP message 'Login successful'?
+   - A: 230
+  
+FTP-palvelimelle kirjautumisen jälkeen komennot ``dir`` ja ``ls`` näyttivät mitä palvelin pitää sisällään (screenshot unohtui). Vastaus paljasti flag.txt tiedoston, joka tulisi enää vain napata.
+FTP:n ``get``-komennolla pystyi lataamaan palvelimelta löytyviä tiedostoja, joten get flag.txt. Latauksen jälkeen pois palvelimelta ja ``cat``-komennolla lippu auki.
+
+![kuva8](images/h1-getflag.png)
+
+Bambi tyrmätty.
+
+![kuva9](images/h1-victory.png)
+
 ## Lähteet
 
 Tero Karvinen
+- https://terokarvinen.com/tunkeutumistestaus/#h1-kybertappoketju
+- https://terokarvinen.com/2021/install-debian-on-virtualbox/
 
+Herrasmieshakkerit
+- https://herrasmieshakkerit.fi/tietoturvan-niksipirkka-vieraana-juho-rikala-0x34/
+
+Hutchins, EM et al. 2011. Intelligence-Driven Computer Network Defense Informed by Analysis of Adversary Campaigns and Intrusion Kill Chains.
+- https://lockheedmartin.com/content/dam/lockheed-martin/rms/documents/cyber/LM-White-Paper-Intel-Driven-Defense.pdf
+
+Santos, O et al. s.a. The Art of Hacking.
+- https://www.oreilly.com/videos/the-art-of/9780135767849/9780135767849-SPTT_04_00/
+
+Finlex. 2003. KKO 2003:36.
+- https://www.finlex.fi/fi/oikeuskaytanto/korkein-oikeus/ennakkopaatokset/2003/36
+ 
 Nmap
 - https://nmap.org/book/performance-timing-templates.html
 - https://nmap.org/book/man-misc-options.html
+
+IBM
+- https://www.ibm.com/docs/en/i/7.5.0?topic=i-configuring-anonymous-ftp
