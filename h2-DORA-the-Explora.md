@@ -95,5 +95,3 @@ EU EUR-Lex tietokanta
 
 Suomen Pankki
 - https://www.suomenpankki.fi/globalassets/bof/en/money-and-payments/the-bank-of-finland-as-catalyst-payments-council/tiber-fi/tiber-fi-2.0-procedures-and-guidelines.pdf
-
-# KONE TILTTAS, KANDEE TALLENTAA AINA VÄLILLÄ RIPPISTÄ PRKL :ASD
