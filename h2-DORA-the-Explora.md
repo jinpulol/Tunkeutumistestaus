@@ -79,7 +79,56 @@ Vapaaehtoinen tehtävä, tällä kertaa tallennettu soittolistaan.
 
 Video katsottavissa [täältä](https://www.youtube.com/watch?v=z6KIEEknKjM).
 
+## a) Asenna Metasploitable 2
 
+Metasploitable 2 asennettu tunnilla. Asennuksessa ei tullut vastaan ongelmia.
+
+Asennus lyhykäisyydessään:
+- Latasin asennukseen tarvittavan Zip-kansion rapid7.com
+  - Puretusta kansiosta löytyy mm. ``Metasploitable.vmdk``-tiedosto.
+- Asensin uuden virtuaalokoneen VirtualBoxiin
+  - Kone nimetty Metasploitable
+  - Tyyppi Linux, OS Other Linux (64-bit)
+  - 2048MB RAM
+  - Specify virtual hard disk -> Use an Existing Virtual Hard Disk File:
+    - Valitsin aiemmin mainitun ``Metasploitable.vmdk``-tiedoston.
+- Valmis
+
+Asennuksen jälkeen tarkistettu, että kone käy ja kukkuu.
+
+## b) Virtuaaliverkko
+
+Kahden virtuaalikoneen (Kali ja Metasploitable) välinen virtuaaliverkko asennettu tunnilla.
+
+Host-only-verkkoa luodessa ilmeni ``Could not find Host Interface Networking driver! Please reinstall.`` -virheilmoitus. Löysin verrattain vanhan [keskustelun](https://stackoverflow.com/questions/37934711/virtual-box-host-only-network-interface), jonka avulla asensin tarvittavan ajurin uudelleen polusta ``C:\Program Files\Oracle\VirtualBox\drivers\network\netadp6\VBoxNetAdp6.inf``. Tämän jälkeen Host-only-verkon luominen onnistui.
+
+Host-only-verkon konfigurointiin löytyi googlettamalla selkeä [ohje](https://medium.com/cyber-collective/setting-up-metasploitable-in-virtualbox-on-kali-linux-1d5c3212f7f3). Lyhykäisyydessään Host-only-verkon luominen tapahtui:
+- Valitse Network -> Create.
+- Valitse luodun verkon kohdalla Properties.
+- Adapter -> Configure Adapter Manually.
+- DHCP Server -> Enable.
+- Tallenna muutokset Applysta.
+
+Lopputuloksena on uusi Host-only Network, jonka nimi on ``VirtualBox Host-Only Ethernet Adapter #nro``.
+
+![kuva1](images/h2-hostonly.png)
+
+Seuraavaksi uusi verkko tuli lisätä kumpaankin virtuaalikoneeseen:
+- Valitse virtuaalikone -> Settings.
+- Valitse Network ja:
+  - Kalissa Adapter 2 -> Enable -> Attached to: Host-only Adapter.
+  - Metasploitablessa Adapter 1 -> Enable ja Attached to: Host-only Adapter.
+- Hyväksy muutokset painamalla OK.
+
+Nyt Kalista löytyy kaksi verkkokorttia, NAT ja Host-only, ja Metasploitablesta pelkästään Host-only.
+
+Kali:
+
+![kuva2](images/h2-kalinetwork.png)
+
+Metasploitable:
+
+![kuva3](images/h2-metasnetwork.png)
 
 ## Lähteet
 
@@ -95,3 +144,6 @@ EU EUR-Lex tietokanta
 
 Suomen Pankki
 - https://www.suomenpankki.fi/globalassets/bof/en/money-and-payments/the-bank-of-finland-as-catalyst-payments-council/tiber-fi/tiber-fi-2.0-procedures-and-guidelines.pdf
+
+Stack Overflow
+- https://stackoverflow.com/questions/37934711/virtual-box-host-only-network-interface
