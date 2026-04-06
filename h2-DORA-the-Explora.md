@@ -45,7 +45,7 @@ Marko Buurin esityksen kaikki diat luettavissa [täältä](https://terokarvinen.
 
 #### Testaajista (art. 27)
 - Testaajien pitää olla:
-  - Päteviä, luotettavia, sertifioituja (tai riittävä pätevyys, kokemus ja ) ja vakuutettuja.
+  - Päteviä, luotettavia, sertifioituja (tai riittävä pätevyys, kokemus ja osoitettu asiantuntevuus) ja vakuutettuja.
 - Ulkoisia testaajia käytetään pääsääntöisesti.
   - Vaatimuksena vähintään joka kolmannessa testissä.
 - Sisäiset testaajat sallitaan vain tietyin ehdoin:
