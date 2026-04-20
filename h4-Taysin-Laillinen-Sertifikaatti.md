@@ -1,3 +1,7 @@
+>Raporttia editoitu palautuksen jälkeen:\
+>20.4. Jatkettu f) tehtävä loppuun, lisätty g), h) ja i) tehtävien ratkaisut.
+
+
 # h4 Täysin Laillinen Sertifikaatti
 
 Viikon läksyjen tarkemmat tehtävänannot löytyvät kurssin [sivuilta](https://terokarvinen.com/tunkeutumistestaus/#h4-taysin-laillinen-sertifikaatti).
@@ -38,7 +42,7 @@ Ensimmäinen lukutehtävä: OWASP 2021: OWASP Top 10:2021, [A01:2021 - Broken Ac
 
 Toinen lukutehtävä: PortSwigger Academy [IDOR](https://portswigger.net/web-security/access-control/idor), [Path Traversal](https://portswigger.net/web-security/file-path-traversal) ja [Cross-site Scripting](https://portswigger.net/web-security/cross-site-scripting).
 
-- **IDOR** (Insecure Direct Object Reference) on käyttöoikeusvirhe, jossa sovellus käyttää käyttäjän antamaa arvoa suoraan jonkin kohteen hakemiseen.
+- **IDOR** (Insecure Direct Object Reference) on käyttöoikeusvirhe, jossa sivusto käyttää käyttäjän antamaa arvoa suoraan jonkin kohteen hakemiseen.
   - Haavoittuvuudessa käyttäjä voi vaihtaa esimerkiksi URL-parametria ja päästä toisen käyttäjän tietoihin ilman kunnollista tarkistusta.
   - Tavallisesti tämä tarkoittaa pääsyä toisen käyttäjän tietoihin, mutta joskus virhe voi avata myös ylläpitäjän tai muun korkeamman tason käyttäjän tietoja tai toimintoja.
   - Esimerkiksi URL-osoitteessa ``?customer_number=132355`` hyökkääjä voi kokeilla toista asiakasnumeroa ja nähdä väärän henkilön tiedot.
@@ -46,13 +50,13 @@ Toinen lukutehtävä: PortSwigger Academy [IDOR](https://portswigger.net/web-sec
   - Seurauksena voi olla arkaluonteisten tietojen, kuten viestien, tunnusten tai muiden käyttäjätietojen vuotaminen.
 
 - **Path Traversal** (myös Directory Traversal) on haavoittuvuus, jossa hyökkääjä pääsee käsiksi palvelimen tiedostoihin, joihin hänen ei kuuluisi päästä.
-  - Haavoittuvuudessa sovellus käyttää käyttäjän antamaa syötettä suoraan tiedostopolun muodostamiseen.
+  - Haavoittuvuudessa sivusto käyttää käyttäjän antamaa syötettä suoraan tiedostopolun muodostamiseen.
     - Esimerkki: Hyökkääjä voi muokata parametria esimerkiksi muodossa ``../../../etc/passwd`` ja yrittää lukea palvelimen muita tiedostoja.
     - Tällä tavoin voidaan paljastaa arkaluonteisia tiedostoja, kuten asetuksia, tunnuksia tai sovelluksen lähdekoodia.
   - Suojautuminen perustuu siihen, että käyttäjän syötettä ei käytetä suoraan tiedostopoluissa ja että sallitaan vain turvalliset, ennalta määritellyt arvot.
 
 - **Cross-site scripting** (XSS) on haavoittuvuus, jossa hyökkääjä saa haitallisen JavaScript-koodin suorittumaan toisen käyttäjän selaimessa.
-  - Haavoittuvuudessa sovellus käsittelee käyttäjän syötettä turvattomasti ja palauttaa sen sivulle ilman kunnollista suojausta.
+  - Haavoittuvuudessa sivusto käsittelee käyttäjän syötettä turvattomasti ja palauttaa sen sivulle ilman kunnollista suojausta.
   - XSS:n kolme päätyyppiä ovat reflected XSS, stored XSS ja DOM-based XSS.
     - Reflected XSS: hyökkäyskoodi tulee pyynnöstä ja näkyy heti vastauksessa.
     - Stored XSS: hyökkäyskoodi tallentuu sovellukseen ja osuu myöhemmin muihin käyttäjiin.
@@ -145,7 +149,7 @@ Tehtävässä käytetty apuna PortSwigger Academyn dokumentaatiota [Reflected XS
 - Ratkaisu:
   - Testasin ensin hakukenttää normaalilla merkkijonolla ``mopoauto``.
   - Haku muodosti URL-osoitteen ``*.web-security-academy.net/?search=mopoauto``, joten käyttäjän syöte kulki palvelimelle HTTP-pyynnön parametrina.
-    - Dokumentaation mukaan Reflected XSS syntyy juuri silloin, kun sovellus vastaanottaa dataa HTTP-pyynnössä ja sisällyttää sen heti vastaukseen turvattomalla tavalla.
+    - Dokumentaation mukaan Reflected XSS syntyy juuri silloin, kun sivusto vastaanottaa dataa HTTP-pyynnössä ja sisällyttää sen heti vastaukseen turvattomalla tavalla.
   - Tämän jälkeen korvasin hakutermin XSS-payloadilla ``<script>alert(1)</script>``
   - URL-osoite on siis ``*.web-security-academy.net/?search=<script>alert(1)</script>``
   - Selain suoritti JavaScriptin ja avasi alert-ikkunan.
@@ -170,11 +174,11 @@ Tehtävässä käytetty apuna PortSwigger Academyn dokumentaatiota [Stored XSS-h
   - Testasin ensin kommenttikenttää tavallisella tekstillä varmistaakseni, että syöte todella tallentuu ja näkyy myöhemmin blogipostauksen alla.
   - Tämän jälkeen syötin kommenttiin XSS-payloadin ``<script>alert(1)</script>``.
   - Kun blogipostaus avattiin kommentin lähettämisen jälkeen, selain suoritti JavaScriptin ja avasi alert-ikkunan. 
-    - Dokumentaation mukaan stored XSS syntyy, kun sovellus vastaanottaa epäluotettavaa dataa ja sisällyttää sen myöhempiin HTTP-vastauksiin turvattomalla tavalla.
+    - Dokumentaation mukaan stored XSS syntyy, kun sivusto vastaanottaa epäluotettavaa dataa ja sisällyttää sen myöhempiin HTTP-vastauksiin turvattomalla tavalla.
 - Hyökkäys löytyi testaamalla ensin normaalilla kommentilla, että kommenttilomake toimii tässä haavoittuvuuden entry pointina ja blogisivu kommentin näyttöpaikkana eli exit pointina.
 - Palvelimella tapahtui se, että kommenttilomakkeella lähetetty käyttäjän syöte tallennettiin sovellukseen ja lisättiin myöhemmin blogisivun HTML-vastaukseen. 
   - Tässä labissa syöte päätyi HTML-kontekstiin ilman encodingia, joten selain tulkitsi script-tagin suoritettavana koodina eikä tavallisena tekstinä
-- Vika johtuu siitä, että sovellus tallentaa käyttäjän syötteen ja näyttää sen myöhemmin ilman turvallista käsittelyä.
+- Vika johtuu siitä, että sivusto tallentaa käyttäjän syötteen ja näyttää sen myöhemmin ilman turvallista käsittelyä.
   - Haavoittuvuuden estäminen edellyttää kontekstin ymmärtämistä ja turvallista output encodingia ennen datan näyttämistä.
 
 ## e) Mitä hyökkääjä hyötyy XSS-hyökkäyksestä?
@@ -199,20 +203,149 @@ Tehtävässä käytetty apuna PortSwigger Academyn dokumentaatiota [Path travers
   - Koska kyseessä oli simple case, kokeilin suoraan traversal-syötettä ``../../../etc/passwd``.
     - Muokattu pyyntö oli siis ``/image?filename=../../../etc/passwd``.
     - Tämä ei kuitenkaan toiminut.
+      - ``The image ".../image?filename=../../../etc/passwd" cannot be displayed because it contains errors.`` <sup><font color="red">*lisätty palautuksen jälkeen</font></sup>
+      - Developer Toolsin silmäily ei antanut enempää vastauksia <sup><font color="red">*lisätty palautuksen jälkeen</font></sup>
 
 Jatkan ratkomista ZAP:n avulla myöhemmin, aika loppui kesken palautukseen.
+
+ :exclamation::exclamation:<font color="red">EDIT: Tästä eteenpäin tehtävää on tehty palautuksen jälkeen</font> :exclamation::exclamation:
+
+Palasin samaan pisteeseen, mihin ennen palautusta jäin. Minulla oli edessäni avattuna uudestaan tuotekuva, jonka URL-parametrissa oli ``filename``.
+
+![kuva12](images/h4-smirk.png)
+
+Lähdin tällä kertaa tutkimaan ratkaisua ZAP:n kautta. ZAP:n historiasta viimeinen tallennettu liikenne piti sisällään hetki sitten avaamani tuotakuvan sivu.
+
+![kuva13](images/h4-zapsmirk.png)
+
+ZAP:n Request-välilehdeltä löytyi ``GET https://0ace00720484236e8032b20f007100f2.web-security-academy.net/image?filename=5.jpg HTTP/1.1``-pyyntö, jonka kopioin Requesteriin. Requester on ZAP:n työkalu, jolla voi muokata ja lähettää pyyntöjä manuaalisesti uudelleen. Kopioimani pyyntö palautti vastauksena samaisen virnistyksen.
+
+Muokkasin seuraavaksi GET-pyyntöä eilisen traversal-pyynnön mukaisesti. Vaihdoin ``filename=5.jpg`` kuvatiedoston ``filename=../../../etc/passwd`` poluksi, ja lähetin pyynnön. Sain vastaukseksi:
+
+    HTTP/1.1 200 OK\
+    Content-Type: image/jpeg\
+    X-Frame-Options: SAMEORIGIN\
+    Connection: close\
+    Content-Length: 2316
+
+![kuva14](images/h4-etcpw1.png)
+
+``HTTP/1.1 200 OK`` kertoo, että palvelin hyväksyi pyynnön ja palautti resurssin. Se ei viittaa estoon tai virheeseen. Lisäksi ``Content-Length: 2316`` osoittaa, että vastauksessa on oikeasti dataa mukana, joten endpoint ei palauttanut tyhjää tai pelkkää virhesivua. Tässä kohtaa tunsin olevani lähellä ratkaisua, mutta jokin oli vielä ``/etc/passwd``-tiedoston tiellä.
+
+Pienen motivaatiotauon jälkeen tutkin vastausta uudestaan ja tajusin ristiriidan: olin pyytänyt ``../../../etc/passwd``-tiedostoa, mutta palvelin ilmoitti vastauksen tyypiksi ``image/jpeg``. Tästä pystyi päättelemään, että sisältö palautui image-endpointin kautta, vaikka kyse ei ollut kuvasta.
+
+Siksi ZAP yritti näyttää bodyn kuvana. Kun vaihdoin näkymän tekstiksi, sain esiin /etc/passwd-tiedoston sisällön ja varmistin, että path traversal oli onnistunut.
+
+![kuva15](images/h4-path1done.png)
+
+- Hyökkäys löytyi tutkimalla, miten sivusto lataa tuotekuvia. Kuvan URL:ssa käyttäjän syöte meni suoraan ``filename``-parametriin.
+- Palvelimella tapahtui se, että sivusto käytti kuvan nimeä osana tiedostopolkua. 
+  - Dokumentaation mukaan tyypillinen toteutus on, että sivusto liittää käyttäjän antaman tiedostonimen ennalta määrättyyn hakemistoon, esimerkiksi ``/var/www/images/``, ja lukee sitten kyseisen tiedoston filesystem-API:lla.
+- Hyökkäys toimi, koska ``../`` tarkoittaa siirtymistä yhden hakemistotason ylöspäin. 
+  - Kun parametriksi annettiin ``../../../etc/passwd``, hakemistossa päädyttiin juureen asti, ja luettava tiedosto oli ``/etc/passwd``.
+- Vika johtuu siitä, että sivusto ei rajoittanut käyttäjän antamaa polkua turvallisesti.
+  - Dokumentaation mukaan path traversal syntyy, kun käyttäjän syöte välitetään tiedostojärjestelmän käsittelyyn ilman riittävää validointia.
+  - Haavoittuvuuden estäminen edellyttäisi, että käyttäjän syötettä ei välitetä suoraan filesystem-API:lle.
+
 
 ## g) PortSwigger Labs: File path traversal, traversal sequences blocked with absolute path bypass
 
 Editoin tehtävän myöhemmin, aika loppui kesken palautukseen.
 
+ :exclamation::exclamation:<font color="red">EDIT: Tästä eteenpäin tehtävää on tehty palautuksen jälkeen</font> :exclamation::exclamation:
+
+>This lab contains a path traversal vulnerability in the display of product images. \
+>The application blocks traversal sequences but treats the supplied filename as being relative to a default working directory. \
+>To solve the lab, retrieve the contents of the /etc/passwd file.
+
+Tehtävässä käytetty apuna PortSwigger Academyn dokumentaatiota [Path traversalista](https://portswigger.net/web-security/file-path-traversal#what-is-path-traversal).
+
+
+Lähestyin tätä tehtävää tällä kertaa suoraan ZAP:ssa. Dokumentaation mukaan ``../``-sekvenssit eivät tällä kertaa toimi, mutta se ei estä absoluuttista polkua.
+
+Etsin ZAP:sta ensin pyynnön, josta löytyi kuva. Löysin pyynnön ``GET /image?filename=31.jpg``, ja sen response palautti normaalisti kuvatiedoston. Kopioin tämän GET-pyynnön Requesteriin ja varmistin vielä, että sama kuva palautui myös sitä kautta.
+
+![kuva16](images/h4-umbrella.png)
+
+Testasin seuraavaksi, mitä tapahtuisi, jos lähettäisin silti ``../``-sekvenssejä sisältävän pyynnön. Vastaukseksi tuli ``HTTP/1.1 400 Bad Request``, mikä osoitti, että sivusto tunnisti traversal-yrityksen ja hylkäsi pyynnön jo ennen tiedoston lukemista.
+
+Tämän jälkeen poistin ``../``-sekvenssit kokonaan ja lähetin pyynnön uudelleen käyttäen ``filename``-parametrina suoraan absoluuttista polkua ``/etc/passwd``. Tällä kertaa palvelin vastasi onnistuneesti ``HTTP/1.1 200 OK``, ja response sisälsi ``/etc/passwd``-tiedoston rivit, kuten ``root:x:0:0:root:/root:/bin/bash``.
+
+![kuva17](images/h4-umbrelladone.png)
+
+- Hyökkäys löytyi taas tutkimalla, miten sivusto lataa tuotekuvia. Kuvan URL:ssa käyttäjän syöte meni suoraan ``filename``-parametriin, joten sitä pystyi testaamaan tiedostopolkuna.
+- Palvelimella tapahtui se, että sivusto käytti ``filename``-parametria tiedoston lukemiseen palvelimelta image-endpointin kautta. 
+  - Dokumentaation mukaan tämä tehdään tyypillisesti niin, että käyttäjän syöte liitetään tiedostopolkuun ja luetaan filesystem-API:lla.
+- Uusi havainto tässä harjoituksessa oli se, että ``../``-sekvenssit oli estetty. Tämä näkyi käytännössä siinä, että traversal-yritys johti virhevastaukseen.
+  - Hyökkäys onnistui silti, koska sivusto hyväksyi absoluuttisen polun. 
+  - Dokumentaation mukaan jos traversal-sekvenssit estetään, suojauksen voi joskus ohittaa antamalla tiedostonimen suoraan absoluuttisena polkuna, kuten ``filename=/etc/passwd``.
+- Vika johtuu siitä, että sivusto ei rajannut käyttäjän syötettä turvallisesti sallittuun hakemistoon. Vaikka ``../``-sekvenssit oli blokattu, käyttäjän syöte päätyi edelleen filesystem-käsittelyyn liian luottavaisesti.
+- Haavoittuvuuden estäminen edellyttäisi samaa kuin edellisessä tehtävässä: käyttäjän syötettä ei pitäisi välittää suoraan filesystem-API:lle.
+
 ## h) PortSwigger Labs: File path traversal, traversal sequences stripped non-recursively
 
 Editoin tehtävän myöhemmin, aika loppui kesken palautukseen.
 
+:exclamation::exclamation:<font color="red">EDIT: Tästä eteenpäin tehtävää on tehty palautuksen jälkeen</font> :exclamation::exclamation:
+
+> This lab contains a path traversal vulnerability in the display of product images.\
+> The application strips path traversal sequences from the user-supplied filename before using it.\
+> To solve the lab, retrieve the contents of the /etc/passwd file. 
+
+Tehtävässä käytetty apuna PortSwigger Academyn dokumentaatiota [Path traversalista](https://portswigger.net/web-security/file-path-traversal#what-is-path-traversal).
+
+Lähestyin tätä tehtävää jälleen suoraan ZAP:ssa. Tehtävänannon mukaan sivusto poistaa path traversal -sekvenssejä käyttäjän syötteestä ennen tiedoston lukemista, joten pelkkä tavallinen ``../`` ei tässä tapauksessa todennäköisesti riitä. Dokumentaation perusteella tällainen suojaus voidaan joskus ohittaa käyttämällä sisäkkäisiä traversal-sekvenssejä ``....//``, jotka palautuvat toimiviksi ``../``-muodoiksi, mikäli sivusto poistaa sekvenssit vain kerran.
+
+Etsin ZAPista ensin pyynnön, josta löytyi kuva. Löysin pyynnön ``GET /image?filename=37.jpg``, ja sen response palautti normaalisti kuvatiedoston. Kopioin tämän GET-pyynnön Requesteriin ja varmistin vielä, että sama kuva palautui myös sitä kautta.
+
+![kuva18](images/h4-beerbelt.png)
+
+Tämän jälkeen muokkasin ``filename``-parametria ja testasin, voiko suodatuksen ohittaa sisäkkäisellä traversal-muodolla ``....//``. Ajatuksena oli, että jos sivusto tosiaan poistaa ``../``-sekvenssit vain kerran, syötteestä voi jäädä jäljelle edelleen toimiva traversal-pätkä, jolloin tiedostopolku ei enää rajoitu kuvahakemistoon.
+
+Tämä toimi, ja palvelin palautti vastaukseksi ``/etc/passwd``-tiedoston sisällön. Vastauksessa näkyi mm. rivi ``root:x:0:0:root:/root:/bin/bash``, mikä vahvisti sivuston suodattaneen traversal-sekvenssejä vain kerran.
+
+![kuva19](images/h4-beerbeltdone.png)
+
+- Hyökkäys löytyi tutkimalla taas, miten sivusto lataa tuotekuvia. Kuvan URL:ssa käyttäjän syöte meni suoraan ``filename``-parametriin, joten sitä pystyi testaamaan tiedostopolkuna.
+- Palvelimella tapahtui se, että image-endpoint käytti ``filename``-parametria tiedoston lukemiseen.
+- Uusi havainto oli se, että sivusto kyllä poisti traversal-sekvenssejä, mutta vain kerran.
+  - Tästä syystä hyökkäys onnistui, sillä suodatuksen jälkeen polku muuttui käytännössä traversal-muotoon.
+- Vika johtuu siitä, että sovellus luotti liikaa merkkijonotason suodatukseen.
+
 ## i) PortSwigger Labs: Insecure direct object references
 
 Editoin tehtävän myöhemmin, aika loppui kesken palautukseen.
+
+ :exclamation::exclamation:<font color="red">EDIT: Tästä eteenpäin tehtävää on tehty palautuksen jälkeen</font> :exclamation::exclamation:
+
+> This lab stores user chat logs directly on the server's file system, and retrieves them using static URLs. \
+> Solve the lab by finding the password for the user carlos, and logging into their account.
+
+Tehtävässä käytetty apuna PortSwigger Academyn dokumentaatiota [IDOR:sta](https://portswigger.net/web-security/access-control/idor).
+
+Tehtävänannon mukaan lokit tallennetaan palvelimen tiedostojärjestelmään ja haetaan staattisilla URL-osoitteilla, mikä viittasi suoraan IDOR-haavoittuvuuteen.
+
+Aloitin silmäilemällä sivustoa ja käymällä läpi sen näkyviä toimintoja. Etusivulta löytyivät linkit ``Home``, ``My account`` ja ``Live chat``. ``Home``-sivu oli näkymä, joka aukesi oletuksena. ``My accountin`` takaa löytyi kirjautumisikkuna, mikä ei toiminut admin-admin -kentillä. ``Live chatissa`` pystyi kirjoittamaan viestejä ja tallentamaan keskustelun. Kun tallensin oman keskusteluni, sovellus latasi tiedoston nimeltä ``2.txt``.
+
+Vaihdoin tämän tiedon jälkeen ZAP:n puolelle ja etsin historiasta kyseisen ``GET /download-transcript/2.txt`` -pyynnön. Kopioin löytämäni pyynnön Requesteriin ja lähetin pyynnön. Sain vastaukseksi hetki sitten käydyn keskustelun.
+
+![kuva20](images/h4-chat.png)
+
+Seuraava kysymys olikin, mitä jos lähetän ````GET /download-transcript/1.txt`` -pyynnön? Vastaukseksi sain keskustelun, jota minun ei olisi koskaan pitänyt pystyä näkemään. Keskustelusta löytyi tarvitsemani salasana.
+
+![kuva21](images/h4-chatpw.png)
+
+Siirryin ``My account``-sivulle ja syötin tehtävänannossa annetun tunnuksen ``carlos`` ja löytämäni salasanan. Kirjautuminen onnistui ja tehtävä oli suoritettu.
+
+![kuva22](images/h4-carlos.png)
+
+- Hyökkäys löytyi tutkimalla, miten sovellus tallentaa ja hakee live chat -keskusteluja. 
+  - Kun tallensin oman keskustelun, sovellus latasi tiedoston 2.txt, mikä paljasti, että chat-lokit haetaan suoraan staattisina tiedostoina URL-osoitteella.
+- Palvelimella tapahtui se, että sovellus tallensi keskustelulokit tiedostojärjestelmään ja palautti ne pyydettäessä suoraan tiedostonimen perusteella.
+  - Dokumentaation mukaan access control määrittää, saako käyttäjä käyttää tiettyä resurssia, ja IDOR syntyy juuri silloin, kun käyttäjän syötettä käytetään objektin suoraan hakemiseen ilman riittävää tarkistusta.
+- Vika johtuu puutteellisesta pääsynvalvonnasta. 
+  - Sovellus luotti siihen, että käyttäjä pyytää vain omaa lokitiedostoaan, mutta ei sitonut pyydettyä resurssia kirjautuneeseen käyttäjään.
+- Turvallinen toteutus edellyttäisi, että palvelin tarkistaa jokaisella pyynnöllä pyydetyn tiedoston varmasti kuuluvan kirjautuneelle käyttäjälle.
 
 ## Lähteet
 
