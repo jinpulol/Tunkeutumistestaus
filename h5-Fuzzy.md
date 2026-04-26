@@ -1,4 +1,6 @@
-# h4 Täysin Laillinen Sertifikaatti
+>edit palautuksen jälkeen, ennen deadlineä: korjattu otsikko
+
+# h5 Fuzzy
 
 Viikon läksyjen tarkemmat tehtävänannot löytyvät kurssin [sivuilta](https://terokarvinen.com/tunkeutumistestaus/#h5-Fuzzy).
 
