@@ -45,7 +45,7 @@ Komennossa:
 - ``LHOST=192.168.129.4`` määrittää hyökkääjän (Kalin) oman osoitteen, mihin kohde tulee avaamaan reverse shellin.
 - ``LPORT=5555`` määrittää portti, johon yhteys muodostetaan
 - ``-f elf``, ``-f``-optio (--format) määrittää mihin muotoon payload luodaan
-  - ``elf`` on Linux-järjestelmissä käytettävä suoritustiedostomuoto (Dev.to, ELF Files)
+  - ``elf`` on Linux-järjestelmissä käytettävä suoritustiedostomuoto (man7 Linux man-pages, elf)
 - ``-o cs-aimbot.elf``, ``-o``-optio (--out) tallentaa payloadin. (OffSec, msfvenom)
 
 ![kuva1](images/h6-csaimbot1.png)
@@ -270,8 +270,8 @@ OffSec, Metasploit Unleashed
 101Labs, Comptia Labs
 - Establishing a reverse shell on a Linux target using Msfvenom and Metasploit: https://www.101labs.net/comptia-security/lab-75-establishing-a-reverse-shell-on-a-linux-target-using-msfvenom-and-metasploit/
 
-DEV Community
-- Understanding the Basics of ELF Files on Linux: https://dev.to/bytehackr/understanding-the-basics-of-elf-files-on-linux-61c
+man7.org Linux man-pages
+- elf(5): https://man7.org/linux/man-pages/man5/elf.5.html
 
 Github, BishopFox
 - Sliver: https://github.com/BishopFox/sliver/
