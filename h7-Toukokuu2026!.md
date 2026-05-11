@@ -218,7 +218,7 @@ Tehtävä mukaili pitkälti edellistä: poimi ensin tiiviste Johnille työstett�
 
 Toisessa vaiheessa John päästettiin irti komennolla:
 
-    $ john nothing-important.docx-hash
+    $ john nothing-important.docx.hash
 
 Luulin valinneeni melko yleisen salasanan, mutta John ei ollut löytänyt tätä 10 minuutin aikana. Tapoin haun CTRL+C -näppäin komennolla. Huomasin komennon alussa, että John käytti omaa sanakirjaa ``/usr/share/john/password.lst``.
 
@@ -407,6 +407,9 @@ Tero Karvinen
 - Cracking Passwords with Hashcat: https://terokarvinen.com/2022/cracking-passwords-with-hashcat/
 - Crack File Password with John: https://terokarvinen.com/2023/crack-file-password-with-john/
 
+Daniel Miessler, SecLists
+- rockyou.txt: https://github.com/danielmiessler/SecLists/blob/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz
+
 Hashcat Wiki
 - Example hashes: https://hashcat.net/wiki/doku.php?id=example_hashes
 - Rule Based Attack: https://hashcat.net/wiki/doku.php?id=rule_based_attack
@@ -419,6 +422,9 @@ SuperUser Questions
 
 Robin Wood, Digininja Github
 - CeWL: https://github.com/digininja/CeWL
+
+Wikipedia
+- Tatra T6A5: https://fi.wikipedia.org/wiki/Tatra_T6A5
 
 
 
