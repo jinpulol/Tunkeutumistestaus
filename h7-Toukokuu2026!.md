@@ -379,7 +379,7 @@ Vastauksena tuli lista uusia salasanoja:
     !password
     possword
 
-![alt text](image.png)
+![kuva24](images/h7-passwords.png)
 
 Tulosteesta näki, että sääntötiedosto toimi odotetusti. Jokainen sääntö muokkasi alkuperäistä sanaa `password` säännössä asetetuin tavoin.
 
